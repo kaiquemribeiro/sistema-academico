@@ -1,6 +1,19 @@
 /* From uiverse.io by @alexruix */
-* {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+body {
+  background: #272727;
+  font-family: "Montserrat", sans-serif;
+}
+
+.bem-vindo{
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .container-card {
