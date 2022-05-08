@@ -4,13 +4,6 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
-li {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-direction: row;
-  list-style: none;
-}
 
 .navMenu {
   display: flex;
@@ -36,11 +29,11 @@ li {
 }
 
 .dados-usuario {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  padding-left: 20px;
-  color: #f6f4e6;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 0 20px 0 20px;
+    color: #f6f4e6;
 }
 
 .dados-usuario img {
