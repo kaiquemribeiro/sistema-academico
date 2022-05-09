@@ -10,7 +10,7 @@ body {
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
-  margin-top: 50px;
+  margin-top: auto;
   margin-bottom: 50px;
   padding-left: 20px;
 }
@@ -22,9 +22,36 @@ body {
   text-transform: uppercase;
   font-weight: 500;
   padding: 10px;
-  width: 80px;
+  width: auto;
 }
 .navMenu a:hover {
+  color: #5e6681;
+}
+
+.cancelamento {
+  display: none;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  margin-top: auto;
+  margin-bottom: 50px;
+  padding-left: 40%;
+}
+
+.cancelamento a{
+  color: #f6f4e6;
+  justify-content: space-around;
+  text-decoration: none;
+  align-items: center;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 10px;
+  width: auto;
+  height: auto;
+}
+
+.cancelamento a:hover{
   color: #5e6681;
 }
 

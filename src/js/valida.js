@@ -5,7 +5,7 @@ document.getElementById("btn").addEventListener("click", function (event) {
 const validaUsuario = () => {
   const usuario = document.getElementById("usuario").value;
   if (usuario.includes("1", 1)) {
-    alert("Usuario valido admin");
+    window.location.href = "./professor.html";
   } else if (usuario.includes("2", 1)) {
     window.location.href = "./aluno.html";
   } else {

@@ -35,3 +35,7 @@ const turmas = () => {
     horario.style.display = 'none';
     turmas.style.display = 'block';
 }
+
+const logOut = () => {
+    window.location.href = "./index.html";
+}
