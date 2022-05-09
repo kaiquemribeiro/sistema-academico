@@ -1,0 +1,29 @@
+{
+  "name": "node-server-express",
+  "version": "1.0.0",
+  "description": "servidor node para o sistema academico",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaiquemribeiro/sistema-academico.git"
+  },
+  "keywords": [
+    "sistema",
+    "academico",
+    "express",
+    "node"
+  ],
+  "author": "Kaique Ribeiro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaiquemribeiro/sistema-academico/issues"
+  },
+  "homepage": "https://github.com/kaiquemribeiro/sistema-academico#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}

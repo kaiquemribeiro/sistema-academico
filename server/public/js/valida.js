@@ -8,6 +8,8 @@ const validaUsuario = () => {
     alert("Usuario valido admin");
   } else if (usuario.includes("2", 1)) {
     window.location.href = "./aluno.html";
+  } else if (usuario.includes("3", 1)) {
+    window.location.href = "./professor.html";
   } else {
     alert("Usuario invalido");
   }
