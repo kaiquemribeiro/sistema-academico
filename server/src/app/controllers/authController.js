@@ -3,6 +3,7 @@ const Student = require('../../models/student');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authConfig = require('../../config/auth');
+const crypto = require('crypto');
 
 const router = express.Router();
 
@@ -43,6 +44,34 @@ router.post('/authenticate', async (req, res) => {
   student.password = undefined;
 
   res.send({ student, token: generateToken() });
+});
+
+router.post('/forgot_password', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const student = Student.findOne({ email });
+
+    if (!user) return res.status(400).send({ error: 'email não cadastrado!' });
+
+    const token = crypto.randomBytes(20).toString('hex');
+    const now = new Date();
+    now.setHours(now.getHours() + 1);
+
+    await Student.findByIdAndupdate(student.id, {
+      $set: {
+        passwordResetToken: token,
+        passwordResetExpires: now,
+      },
+    });
+    console.log('token e now: ', token, now);
+  } catch (err) {
+    console.warn(err);
+    res.status(400).send({
+      error:
+        'Houve um erro ao tentar recuperar a senha, tente novamente mais tarde.',
+    });
+  }
 });
 
 module.exports = (app) => app.use('/auth', router);

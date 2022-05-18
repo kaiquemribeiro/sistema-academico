@@ -7,8 +7,7 @@ const path = require('path');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-require('./controllers/authController')(app);
-require('./controllers/projectController')(app);
+require('./app/controllers')(app);
 
 app.use(express.static("public"));
 
