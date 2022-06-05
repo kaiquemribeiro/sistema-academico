@@ -15,7 +15,7 @@
       <div class="card">
         <img src="../images/avatar.png" alt="avatar" />
         <h4 class="title">Login</h4>
-        <form>
+        <form method="POST">
           <div class="field">
             <svg
               class="input-icon"
@@ -31,7 +31,7 @@
               id="usuario"
               placeholder="Usuário"
               class="input-field"
-              name="logemail"
+              name="email"
             />
           </div>
           <div class="field">
@@ -46,18 +46,22 @@
             </svg>
             <input
               autocomplete="off"
-              id="logpass"
+              id="password"
               placeholder="Senha"
               class="input-field"
-              name="logpass"
+              name="password"
               type="password"
             />
           </div>
-          <button class="btn" id="btn" onclick="validaUsuario()">Login</button>
+          <div class="not-found">Usuário não encontrado!</div>
+          <div class="wrong-pass">Senha incorreta!</div>
+          <!-- <button class="btn" id="btn" onclick="validaUsuario()">Login</button> -->
+          <input type="submit" class="btn" id="btn" value="Login" />
           <a href="#" class="btn-link">Esqueceu sua senha?</a>
         </form>
       </div>
     </div>
+    <script src="../js/login.js"></script>
   </body>
-  <script src="../js/valida.js"></script>
+  <!-- <script src="../js/valida.js"></script> -->
 </html>

@@ -1,9 +1,9 @@
 /* From uiverse.io by @alexruix */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 body {
   background: #272727;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .bem-vindo {
@@ -99,4 +99,14 @@ body {
 
 .btn-link:hover {
   color: #ffeba7;
+}
+
+.not-found, .wrong-pass {
+  display: none;
+  color: red;
+  margin: 1rem 0;
+}
+
+.active {
+  display: block;
 }

@@ -1,10 +1,13 @@
 const express = require('express');
 const Student = require('../models/student');
+const Teacher = require('../models/teacher');
+const Admin = require('../models/admin');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const authConfig = require('../../config/auth');
 const crypto = require('crypto');
 const mailer = require('../../modules/mailer');
+const { findOne } = require('../models/student');
 
 const router = express.Router();
 
@@ -14,17 +17,48 @@ function generateToken(params = {}) {
   });
 }
 
+const UserType = {
+  Student,
+  Teacher,
+  Admin,
+};
+
+async function findOnUserTypes(params = {}) {
+  let user = null;
+
+  for (const key in UserType) {
+    user = await UserType[key].findOne(params);
+
+    if (user) return user;
+  }
+
+  return null;
+}
+
 router.post('/register', async (req, res) => {
-  const { email } = req.body;
+  const { email, usertype, name, birthDate, password, ra, rg } = req.body;
 
   try {
-    if (await Student.findOne({ email }))
+    if (!UserType[usertype])
+      return res
+        .status(400)
+        .send({ erro: 'O tipo de  usuário não foi informado!' });
+
+    if (await findOnUserTypes({ email }))
       return res.status(400).send({ error: 'email já cadastrado!' });
+    
+    const user = new UserType[usertype](
+      name,
+      email,
+      password,
+      birthDate,
+      ra,
+      rg
+    );
 
-    const student = await Student.create(req.body);
-
-    student.password = undefined;
-    return res.send({ student, token: generateToken() });
+    await user.save();
+    user.password = undefined;
+    return res.send({ user, token: generateToken() });
   } catch (err) {
     console.warn(err);
 
@@ -34,33 +68,36 @@ router.post('/register', async (req, res) => {
 
 router.post('/authenticate', async (req, res) => {
   const { email, password } = req.body;
+  
+  const user =
+    (await Student.model.findOne({ email }).select('+password')) ||
+    (await Teacher.model.findOne({ email }).select('+password')) ||
+    (await Admin.model.findOne({ email }).select('+password'));
 
-  const student = await Student.findOne({ email }).select('+password');
+    if (!user) return res.status(400).redirect('/./auth/authenticate?not_found=1');
 
-  if (!student) return res.status(400).send({ error: 'email não cadastrado!' });
+  if (!(await bcrypt.compare(password, user.password)))
+    return res.status(400).redirect('/./auth/authenticate?wrong_pass=1');
 
-  if (!(await bcrypt.compare(password, student.password)))
-    return res.status(400).send({ error: 'Senha incorreta!' });
+  user.password = undefined;
 
-  student.password = undefined;
-
-  res.send({ student, token: generateToken() });
+  res.redirect('./aluno');
+  res.send({ user, token: generateToken() });
 });
 
 router.post('/forgot_password', async (req, res) => {
   const { email } = req.body;
 
   try {
-    const student = await Student.findOne({ email });
+    const user = await findOnUserTypes({ email });
 
-    if (!student)
-      return res.status(400).send({ error: 'email não cadastrado!' });
+    if (!user) return res.status(400).send({ error: 'email não cadastrado!' });
 
     const token = crypto.randomBytes(20).toString('hex');
     const now = new Date();
     now.setHours(now.getHours() + 1);
 
-    await Student.findByIdAndUpdate(student.id, {
+    await user.findByIdAndUpdate(user.id, {
       $set: {
         passwordResetToken: token,
         passwordResetExpires: now,
@@ -95,29 +132,39 @@ router.post('/forgot_password', async (req, res) => {
 });
 
 router.post('/reset_password', async (req, res) => {
-  const {email, token, password} = req.body;
+  const { email, token, password } = req.body;
 
   try {
-    const student = await Student.findOne({email})
-    .select('+passwordResetToken passwordResetExpires');
+    const user =
+      (await Student.model
+        .findOne({ email })
+        .select('+passwordResetToken passwordResetExpires')) ||
+      (await Teacher.model
+        .findOne({ email })
+        .select('+passwordResetToken passwordResetExpires')) ||
+      (await Admin.model
+        .findOne({ email })
+        .select('+passwordResetToken passwordResetExpires'));
 
-    if (!student)
-      return res.status(400).send({ error: 'email não cadastrado!' });
+    if (!user) return res.status(400).send({ error: 'email não cadastrado!' });
 
-    if (token !== student.passwordResetToken)
-      return res.status(400).send({error: 'Token inválido'});
+    if (token !== user.passwordResetToken)
+      return res.status(400).send({ error: 'Token inválido' });
 
     const now = new Date();
-    if (now > student.passwordResetExpires)
-      return res.status(400).send({error: "Token expirado"})
+    if (now > user.passwordResetExpires)
+      return res.status(400).send({ error: 'Token expirado' });
 
-    student.password = password;
+    user.password = password;
 
-    await student.save();
-    
+    await user.save();
+
     res.send();
-  } catch(err) {
-    res.status(400).send({error:'Ocorreu um erro ao redefinir a senha, tente novamente mais tarde'})
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({
+      error: 'Ocorreu um erro ao redefinir a senha, tente novamente mais tarde',
+    });
   }
 });
 

@@ -9,19 +9,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 require('./app/controllers')(app);
 
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 app.get('/', (req, res) => {
   // res.send("Servidor online");
-  res.sendFile(path.join(__dirname, 'public/html/index.html'));
+  res.redirect('./auth/authenticate');
 });
 
-app.get("/aluno", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/html/aluno.html"));
+app.get('/auth/authenticate', (req, res) => {
+  // res.send("Servidor online");
+  res.sendFile(path.join(__dirname, '../public/html/index.html'));
 });
 
-app.get("/professor", (req, res) => {
-  res.sendFile(path.join(__dirname, "public/html/professor.html"));
+app.get('/aluno', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/html/aluno.html'));
+});
+
+app.get('/professor', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/html/professor.html'));
 });
 
 app.listen(port, () => {

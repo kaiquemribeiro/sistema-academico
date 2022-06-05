@@ -1,19 +1,51 @@
 const mongoose = require('../../database');
-const bcrypt = require('bcryptjs');
+const User = require('./user');
 
-const user = require('./user');
+class Student extends User {
+  static fields = {
+    ...super.fields,
+  };
 
-const StudentSchema = new mongoose.Schema({
-  ...user,
-});
+  static schema = new mongoose.Schema(Student.fields).pre(
+    'save',
+    User.encryptPassword
+  );
+  static model = mongoose.model('Student', Student.schema);
 
-StudentSchema.pre('save', async function (next) {
-  const hash = await bcrypt.hash(this.password, 10);
-  this.password = hash;
+  static async findOne(params = {}) {
+    try {
+      const student = await Student.model.findOne(params);
 
-  next();
-});
+      if (!student) return null;
 
-const student = mongoose.model('Student', StudentSchema);
+      const { id, email, birthDate, password, name, rg, ra } = student;
 
-module.exports = student;
+      return new Student(id, name, email, password, birthDate, ra, rg);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async findByIdAndUpdate(id, params = {}) {
+    await Student.modelmodel.findByIdAndUpdate(id, params);
+  }
+
+  async save() {
+    try {
+      const { name, password, email, ra, rg, birthDate } = this;
+
+      await Student.model.create({
+        name,
+        password,
+        email,
+        ra,
+        rg,
+        birthDate,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}
+
+module.exports = Student;
