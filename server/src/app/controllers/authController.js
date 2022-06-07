@@ -81,8 +81,9 @@ router.post('/authenticate', async (req, res) => {
 
   user.password = undefined;
 
-  res.redirect('./aluno');
-  res.send({ user, token: generateToken() });
+  res.redirect(`/./aluno?token=${generateToken()}&nome=${user.name}`);
+  // res.redirect('./aluno?')
+  // res.send({ user, token: generateToken() });
 });
 
 router.post('/forgot_password', async (req, res) => {

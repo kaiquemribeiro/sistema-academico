@@ -1,5 +1,4 @@
-const url_string = window.location.href;
-const url = new URL(url_string);
+const url = new URL(window.location.href);
 const not_found = url.searchParams.get('not_found');
 const wrong_pass = url.searchParams.get('wrong_pass');
 
