@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <title>Sistema Acadêmico - Administrador</title>
+  </head>
+  <body>
+    <header class="dados-usuario">
+      <div class="foto-usuario">
+        <img
+          src="https://avatars.dicebear.com/api/avataaars/1.svg"
+          alt="usuario"
+          id="foto-usuario"
+        />
+      </div>
+      <div class="dados-usuario">
+        <h1>Bem-vindo(a), Administrador(a)!</h1>
+        <p class="nome">Nome:<span class="valor">admin</span></p>
+      </div>
+    </header>
+    <div class="container-card">
+      <div class="card">
+        <form action="/auth/register/student" method="POST">
+          <h1 class="title">Cadastrar Aluno</h1>
+          <div class="field">
+            <label for="email">email: </label>
+            <input type="email" name="email" id="email" class="input-field" />
+          </div>
+          <div class="field">
+            <label for="name">Nome: </label>
+            <input type="text" name="name" id="nome" class="input-field" />
+          </div>
+          <div class="field">
+            <label for="password">Senha: </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="input-field"
+            />
+          </div>
+          <div class="field">
+            <label for="ra">RA: </label>
+            <input type="number" name="ra" id="ra" class="input-field" />
+          </div>
+          <div class="field">
+            <label for="ra">RG: </label>
+            <input type="number" name="rg" id="rg" class="input-field" />
+          </div>
+          <div class="field">
+            <label for="idcourse">ID do Curso: </label>
+            <input type="number" name="idcourse" id="idcourse" class="input-field" />
+          </div>
+          <input class="btn" type="submit" value="Cadstrar" />
+        </form>
+      </div>
+      <div class="card">
+        <form action="/auth/register/teacher" method="POST">
+          <h1 class="title">Cadastrar Professor</h1>
+          <div class="field">
+            <label for="email">email: </label>
+            <input type="email" name="email" id="email" class="input-field" />
+          </div>
+          <div class="field">
+            <label for="name">Nome: </label>
+            <input type="text" name="name" id="nome" class="input-field" />
+          </div>
+          <div class="field">
+            <label for="password">Senha: </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="input-field"
+            />
+          </div>
+          <div class="field">
+            <label for="ra">RA: </label>
+            <input type="number" name="ra" id="ra" class="input-field" />
+          </div>
+          <div class="field">
+            <label for="ra">RG: </label>
+            <input type="number" name="rg" id="rg" class="input-field" />
+          </div>
+          <input class="btn" type="submit" value="Cadstrar" />
+        </form>
+      </div>
+      <div class="card">
+        <form action="/auth/delete/student" method="DELETE">
+          <h1 class="title">Remover Aluno</h1>
+          <div class="field">
+            <label for="ra">RA: </label>
+            <input class="input-field" type="number" name="ra" id="ra" />
+          </div>
+          <input class="btn" type="submit" value="Remover" />
+        </form>
+      </div>
+      <div class="card">
+        <form action="/auth/course/create" method="post">
+          <h1 class="title">Cadastrar curso</h1>
+          <div class="field">
+            <label for="idcode">ID: </label>
+            <input class="input-field" type="number" name="idcode" />
+          </div>
+          <div class="field">
+            <label for="name">Nome: </label>
+            <input class="input-field" type="text" name="name" />
+          </div>
+          <input class="btn" type="submit" value="Cadastrar" />
+        </form>
+      </div>
+      <div class="card">
+        <form action="/auth/subject/create" method="POST">
+          <h1 class="title">Cadastrar disciplina</h1>
+          <div class="field">
+            <label for="ra">Professor: </label>
+            <input class="input-field" type="number" name="rg" />
+          </div>
+          <div class="field">
+            <label for="ra">Id: </label>
+            <input class="input-field" type="number" name="id" />
+          </div>
+          <div class="field">
+            <label for="ra">Nome: </label>
+            <input class="input-field" type="text" name="name" />
+          </div>
+          <h2>Horário</h2>
+          <table class="tabela">
+            <thead>
+              <th>Turno</th>
+              <th>Segunda</th>
+              <th>Terça</th>
+              <th>Quarta</th>
+              <th>Quinta</th>
+              <th>Sexta</th>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Manhã</th>
+                <td><input type="checkbox" name="m0" id="" /></td>
+                <td><input type="checkbox" name="m1" id="" /></td>
+                <td><input type="checkbox" name="m2" id="" /></td>
+                <td><input type="checkbox" name="m3" id="" /></td>
+                <td><input type="checkbox" name="m4" id="" /></td>
+              </tr>
+              <tr>
+                <th>Tarde</th>
+                <td><input type="checkbox" name="t0" id="" /></td>
+                <td><input type="checkbox" name="t1" id="" /></td>
+                <td><input type="checkbox" name="t2" id="" /></td>
+                <td><input type="checkbox" name="t3" id="" /></td>
+                <td><input type="checkbox" name="t4" id="" /></td>
+              </tr>
+              <tr>
+                <th>Noite</th>
+                <td><input type="checkbox" name="n0" id="" /></td>
+                <td><input type="checkbox" name="n1" id="" /></td>
+                <td><input type="checkbox" name="n2" id="" /></td>
+                <td><input type="checkbox" name="n3" id="" /></td>
+                <td><input type="checkbox" name="n4" id="" /></td>
+              </tr>
+            </tbody>
+          </table>
+          <input class="btn" type="submit" value="Cadastrar" />
+        </form>
+      </div>
+    </div>
+
+    <script src="../js/admin.js"></script>
+  </body>
+</html>

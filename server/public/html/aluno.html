@@ -16,14 +16,33 @@
           id="foto-usuario"
         />
       </div>
+      <h1>Bem-vindo(a), <span id="nome-titulo"></span>!</h1>
+
       <div class="dados-usuario">
-        <h1>Bem-vindo(a), Fulano!</h1>
-        <span class="nome">Nome: Fulano de Tal </span>
-        <span class="curso">Curso: Sistemas de Informação</span>
-        <span class="matricula">Matrícula: 123456</span>
-        <span class="período">Período: 4º</span>
-        <span class="turno">Turno: Matutino</span>
-        <span class="ano">Ano: 2022</span>
+        <div class="dados-field">
+          <p class="nome">Nome:</p>
+          <p class="nome-value"></p>
+        </div>
+        <div class="dados-field">
+          <p class="curso">Curso:</p>
+          <p class="curso-value"></p>
+        </div>
+        <div class="dados-field">
+          <p class="matricula">Matrícula:</p>
+          <p class="matricula-value"></p>
+        </div>
+        <div class="dados-field">
+          <p class="periodo">Período:</p>
+          <p class="periodo-value"></p>
+        </div>
+        <div class="dados-field">
+          <p class="turno">Turno:</p>
+          <p class="turno-value"></p>
+        </div>
+        <div class="dados-field">
+          <p class="ano">Ano:</p>
+          <p>2022</p>
+        </div>
       </div>
     </div>
     <nav class="navMenu">
@@ -33,13 +52,47 @@
     </nav>
     <div class="conteudo" id="conteudo">
       <div class="conteudo-matricula">
-        <h1>Matrícula em construção!</h1>
+        <h1>Disciplinas matriculadas:</h1>
+        <table class="tabela">
+          <thead>
+            <th>ID</th>
+            <th>Nome</th>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <form action="/auth/subject/enroll" method="POST" id="formMatricular">
+          <h2>Matricular disciplina:</h2>
+          <div class="field">
+            <label for="id">ID da disciplina:</label>
+            <input type="text" name="ra" id="input-ra" hidden />
+            <input class="input-field" type="number" name="id" />
+          </div>
+          <input class="btn" type="submit" value="Matricular" />
+        </form>
       </div>
       <div class="conteudo-boletim">
-        <h1>Boletim em construção!</h1>
+        <h1>Boletim do período:</h1>
+        <table class="tabela">
+          <thead>
+            <th>Disciplina</th>
+            <th>Nota</th>
+          </thead>
+          <tbody id="tabela-notas"></tbody>
+        </table>
       </div>
       <div class="conteudo-horario">
-        <h1>Horário em construção!</h1>
+        <h1>Grade horária:</h1>
+        <table class="tabela">
+          <thead>
+            <th>(1)</th>
+            <th>Segunda</th>
+            <th>Terça</th>
+            <th>Quarta</th>
+            <th>Quinta</th>
+            <th>Sexta</th>
+          </thead>
+          <tbody id="tabela-horario"></tbody>
+        </table>
       </div>
     </div>
   </body>

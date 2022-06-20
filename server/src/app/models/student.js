@@ -1,51 +1,64 @@
 const mongoose = require('../../database');
 const User = require('./user');
 
-class Student extends User {
-  static fields = {
-    ...super.fields,
-  };
+const StudentSchema = new mongoose.Schema({
+  subjectList: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Subject',
+    },
+  ],
+  periodo: {
+    type: Number,
+    default: 1
+  },
+  turno: {
+    type: String,
+    default: "Manhã"
+  },
+  timetable: {
+    type: [[String]],
+    default: [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+    ],
+  },
+  course: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Course',
+  },
+  reportcard: [Array],
+});
 
-  static schema = new mongoose.Schema(Student.fields).pre(
-    'save',
-    User.encryptPassword
-  );
-  static model = mongoose.model('Student', Student.schema);
+const keyTurn = {
+  m: 0,
+  t: 1,
+  n: 2,
+};
 
-  static async findOne(params = {}) {
-    try {
-      const student = await Student.model.findOne(params);
+StudentSchema.methods.updateTimetable = function () {
+  this.timetable = [
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', ''],
+  ];
 
-      if (!student) return null;
-
-      const { id, email, birthDate, password, name, rg, ra } = student;
-
-      return new Student(id, name, email, password, birthDate, ra, rg);
-    } catch (err) {
-      console.log(err);
+  for (subject of this.subjectList) {
+    for (time of subject.timetable) {
+      this.timetable[time.day][keyTurn[time.turn]] = subject.name;
     }
   }
 
-  async findByIdAndUpdate(id, params = {}) {
-    await Student.modelmodel.findByIdAndUpdate(id, params);
-  }
+  StudentSchema.methods.add;
 
-  async save() {
-    try {
-      const { name, password, email, ra, rg, birthDate } = this;
+  return this.timetable;
+};
 
-      await Student.model.create({
-        name,
-        password,
-        email,
-        ra,
-        rg,
-        birthDate,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
+const Student = User.discriminator('Student', StudentSchema);
 
 module.exports = Student;
