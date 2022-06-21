@@ -29,12 +29,17 @@ body {
   
   .dados-usuario {
     display: flex;
+    /* justify-content: space-evenly; */
     align-items: center;
     flex-direction: row;
     padding: 0 20px 0 20px;
     color: #f6f4e6;
   }
   
+.dados-usuario p {
+  margin-left: 2rem;
+}
+
   .dados-usuario img {
     width: 100px;
     height: 100px;
@@ -76,4 +81,93 @@ body {
     font-weight: 500;
     margin-top: 50px;
     margin-bottom: 50px;
+  }
+
+  .tabela {
+    width: 490px;
+    border-collapse: collapse;
+  }
+  
+  .tabela td {
+    border: 1px #d3d3d3 solid;
+  }
+  
+  .btn {
+    margin: 1rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    padding: 0.6em 1.2em;
+    background-color: #ffeba7;
+    color: #5e6681;
+    box-shadow: 0 8px 24px 0 rgb(255 235 167 / 20%);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-link {
+    color: #f5f5f5;
+    display: block;
+    font-size: 0.75em;
+    transition: color 0.3s ease-out;
+  }
+  
+  /*Hover & focus*/
+  
+  .input-field {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    color: #d3d3d3;
+  }
+  
+  .container-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .card {
+    /* width: 190px; */
+    margin-top: 2rem;
+    padding: 1.9rem 1.2rem;
+    text-align: center;
+    background: #2a2b38;
+    border-radius: 5px;
+  }
+  
+  .field input:focus::placeholder {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #5e6681;
+    color: #ffeba7;
+    box-shadow: 0 8px 24px 0 rgb(16 39 112 / 20%);
+  }
+  
+  .btn-link:hover {
+    color: #ffeba7;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .field {
+    margin-top: 0.5rem;
+    max-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    background-color: #1f2029;
+    border-radius: 4px;
+    padding: 0.5em 1em;
   }

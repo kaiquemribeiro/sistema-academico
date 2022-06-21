@@ -201,6 +201,10 @@ router.post('/authenticate', async (req, res) => {
     res.redirect(
       `/./aluno?token=${generateToken({ id: user.id })}&id=${user.id}`
     );
+  } else if (user.__t === 'Teacher') {
+    res.redirect(
+      `/./professor?token=${generateToken({ id: user.id })}&id=${user.id}`
+    );
   }
 
   // res.redirect(`/./aluno?token=${generateToken()}&nome=${user.name}`);
@@ -289,6 +293,7 @@ router.get('/fetch_user/:userId', async (req, res) => {
     const user = await User.findById(req.params.userId).populate([
       'subjectList',
       'course',
+      'studentList',
     ]);
     return res.send({ user });
   } catch (err) {
@@ -377,5 +382,29 @@ router.post('/course/create', async (req, res) => {
 //     return res.status(400).send({ error: 'Error loading admin' });
 //   }
 // });
+
+router.post('/student/changenote', async (req, res) => {
+  const originURL = req.get('referer');
+  const { ra, nota, id } = req.body;
+
+  try {
+    const student = await Student.findOne({ ra });
+    const subject = await Subject.findOne({ id });
+
+    const { reportcard } = student;
+
+    const idx = reportcard.findIndex((element) => element[0] === subject.name);
+
+    reportcard[idx][1] = nota;
+
+    // console.log(reportcard);
+    await Student.updateOne({ _id: student._id }, { $set: { reportcard } });
+
+    res.redirect(originURL + '?success=1');
+  } catch (err) {
+    console.log(err);
+    res.redirect(originURL + '?failed=1');
+  }
+});
 
 module.exports = (app) => app.use('/auth', router);
